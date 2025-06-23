@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ProFlowApp</string>
+
+    <string name="flow_result">Flow Result Screen - Result:</string>
+    <string name="home_message">Home - tap to fetch TODO</string>
+    <string name="fetch_todo_list">Fetch To Do List</string>
+    <string name="fetched">Fetched:</string>
+    <string name="goto_result_screen">Go to Result Screen</string>
+
+    <string name="sign_in_btn">Sign In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+
+    <string name="signin_screen_name">signin</string>
+    <string name="home_screen_name">home</string>
+    <string name="flowresult_screen_name">flowresult</string>
+    <string name="history_screen_name">flowresult</string>
+
+    <string name="both_fields_error">"Please fill in both fields"</string>
+    <string name="username_invalid_error">Please enter a valid username with at least 5 chars.</string>
+    <string name="pass_invalid_error">Please enter a valid password with at least 8 chars, an uppercase and lowercase letter, a number, and a symbol.</string>
+    <string name="login_failed_error">Login Failed</string>
+
+    <string name="admin_username">admin</string>
+    <string name="admin_pass">Letme1n!</string>
+    <string name="bad_credentials_error">Bad credentials</string>
+
+    <string name="gettodolist_url">https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/getlist</string>
+    <string name="postitem_url">https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/postitem</string>
+    <string name="removeitem_url">https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/removeitem</string>
+</resources>
