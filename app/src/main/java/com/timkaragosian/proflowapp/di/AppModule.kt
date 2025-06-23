@@ -1,7 +1,6 @@
 package com.timkaragosian.proflowapp.di
 
 import androidx.room.Room
-import com.timkaragosian.proflowapp.BuildConfig
 import com.timkaragosian.proflowapp.data.db.AppDatabase
 import com.timkaragosian.proflowapp.data.network.HttpClientProvider
 import com.timkaragosian.proflowapp.data.network.TodoApi
@@ -20,24 +19,20 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val networkModule = module {
+val appModules = module {
     single { HttpClientProvider.instance }
 
     single { TodoApi(get(), get()) }
     single { TodoRepositoryImpl(get()) }
     single { GetTodoUseCase(get()) }
+    viewModel { HomeViewModel(get(),get(),get() ) }
 
     single { HistoryRepositoryImpl(get()) }
     single { SaveHistoryUseCase(get()) }
     single { ObserveHistoryUseCase(get()) }
     single<AuthRepository> { FakeAuthRepository() }
-    single<ResourceProvider> {FlowAppResourceProvider(androidContext())}
+    single<ResourceProvider> { FlowAppResourceProvider(androidContext()) }
 
-    viewModel { SignInViewModel(get(), get()) }
-    viewModel { HomeViewModel(get(), get(), get()) }
-}
-
-val roomModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),
@@ -47,5 +42,8 @@ val roomModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
+
     single { get<AppDatabase>().historyDao() }
+
+    viewModel { SignInViewModel(get(), get()) }
 }

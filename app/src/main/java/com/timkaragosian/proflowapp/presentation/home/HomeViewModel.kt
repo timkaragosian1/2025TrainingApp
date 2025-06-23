@@ -33,8 +33,4 @@ class HomeViewModel(
     fun loadSample() = viewModelScope.launch {
         getTodo().collect { _todoList.value = it }
     }
-
-    fun onSubmit(text:String) {
-        viewModelScope.launch { saveHistory(text) }
-    }
 }

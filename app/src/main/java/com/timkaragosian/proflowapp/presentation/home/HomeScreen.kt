@@ -29,7 +29,7 @@ fun HomeScreen(
     onSubmit: (String) -> Unit
 ) {
     val todoList by vm.todoList.collectAsState()
-    val history by vm.history.collectAsState()
+    //val history by vm.history.collectAsState()
     
     Scaffold(
         modifier = Modifier.fillMaxSize(),

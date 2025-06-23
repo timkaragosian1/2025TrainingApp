@@ -1,9 +1,10 @@
 package com.timkaragosian.proflowapp.data.resourcesprovider
 
 import android.content.Context
+import androidx.annotation.StringRes
 
 class FlowAppResourceProvider(
     private val context: Context
-): ResourceProvider {
-    override fun string(resId: Int, vararg args: Any): String = context.getString(resId, *args)
+) : ResourceProvider {
+    override fun string(resId: Int, vararg args: Any): String = context.getString(resId)
 }
