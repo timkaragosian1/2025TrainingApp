@@ -109,9 +109,6 @@ class SignInViewModelTest {
         vm.effect.test {
             vm.onEvent(SignInEvent.SubmitClicked)
 
-            // loading turns true
-            //assertTrue(vm.state.value.isLoading)
-
             advance()
 
             // effect NavigateToHome
@@ -135,14 +132,9 @@ class SignInViewModelTest {
         vm.effect.test {
             vm.onEvent(SignInEvent.SubmitClicked)
 
-            //assertTrue(vm.state.value.isLoading)
-
             advance()
 
-//            assertEquals(
-//                SignInEffect.ShowError("str_${R.string.login_failed_error}"),
-//                awaitItem()
-//            )
+            assertEquals("str_${R.string.login_failed_error}", vm.state.value.errorMessage.value)
             assertFalse(vm.state.value.isLoading)
 
             cancelAndIgnoreRemainingEvents()
