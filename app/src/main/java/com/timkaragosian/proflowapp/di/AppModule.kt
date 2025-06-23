@@ -23,7 +23,7 @@ import org.koin.dsl.module
 val networkModule = module {
     single { HttpClientProvider.instance }
 
-    single { TodoApi(get()) }
+    single { TodoApi(get(), get()) }
     single { TodoRepositoryImpl(get()) }
     single { GetTodoUseCase(get()) }
 

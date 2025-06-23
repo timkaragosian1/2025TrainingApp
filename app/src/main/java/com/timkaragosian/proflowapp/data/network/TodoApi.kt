@@ -11,9 +11,7 @@ class TodoApi(
     private val client: HttpClient = HttpClientProvider.instance,
     private val strings: FlowAppResourceProvider,
 ) {
-    suspend fun getTodoList(): List<TodoDto> = client.get(strings.string(R.string.gettodolist_url)).body()
-
-    suspend fun removeTodoItem(id:String) = client.post("${strings.string(R.string.removeitem_url)}?id=$id")
-
-    suspend fun postItem(todoItem:TodoDto) = client.post("${strings.string(R.string.postitem_url)}?todo=${todoItem.todo}&completed=${todoItem.completed}&timestamp=${todoItem.timestamp}")
+    suspend fun getTodoList(): List<TodoDto> = client.get("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/getlist").body()
+    suspend fun removeTodoItem(id:String) = client.post("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/removeitem?id=$id")
+    suspend fun postItem(todoItem:TodoDto) = client.post("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/removeitem?todo=${todoItem.todo}&completed=${todoItem.completed}&timestamp=${todoItem.timestamp}")
 }

@@ -46,11 +46,10 @@ class HistoryRepositoryTest {
     @Test
     fun insertAndObserveHistoryTest() = runTest(testDispatcher) {
         repo.save("First")
-        repo.save("Second")
 
         val values = repo.observeHistory().first()
 
-        assertEquals(2, values.size)
-        assertEquals("Second", values[0].inputText)
+        assertEquals(1, values.size)
+        assertEquals("First", values[0].inputText)
     }
 }

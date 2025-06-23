@@ -66,7 +66,8 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.13"
+
     }
     packaging {
         resources {
@@ -120,6 +121,7 @@ dependencies {
     testImplementation(libs.core.ktx)
     testImplementation(libs.room.testing)
     testImplementation(libs.robolectric)
+    testImplementation("org.slf4j:slf4j-simple:2.0.13")
 
 
     // Compose Tooling
