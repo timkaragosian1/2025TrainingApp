@@ -30,6 +30,8 @@ val appModules = module {
     single { HistoryRepositoryImpl(get()) }
     single { SaveHistoryUseCase(get()) }
     single { ObserveHistoryUseCase(get()) }
+    single { FlowAppResourceProvider(androidContext()) }
+
     single<AuthRepository> { FakeAuthRepository() }
     single<ResourceProvider> { FlowAppResourceProvider(androidContext()) }
 

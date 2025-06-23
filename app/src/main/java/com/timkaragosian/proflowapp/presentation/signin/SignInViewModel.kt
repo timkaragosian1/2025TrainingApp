@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.timkaragosian.proflowapp.R
-import com.timkaragosian.proflowapp.data.resourcesprovider.FlowAppResourceProvider
+import com.timkaragosian.proflowapp.data.resourcesprovider.ResourceProvider
 import com.timkaragosian.proflowapp.domain.auth.AuthRepository
 import com.timkaragosian.proflowapp.feature.auth.SignInEffect
 import com.timkaragosian.proflowapp.feature.auth.SignInEvent
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 
 class SignInViewModel(
-    private val strings:FlowAppResourceProvider,
+    private val strings: ResourceProvider,
     private val repo: AuthRepository
 ):ViewModel() {
 

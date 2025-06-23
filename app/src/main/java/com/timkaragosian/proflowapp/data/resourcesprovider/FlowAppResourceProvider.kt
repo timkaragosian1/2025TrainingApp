@@ -1,7 +1,6 @@
 package com.timkaragosian.proflowapp.data.resourcesprovider
 
 import android.content.Context
-import androidx.annotation.StringRes
 
 class FlowAppResourceProvider(
     private val context: Context

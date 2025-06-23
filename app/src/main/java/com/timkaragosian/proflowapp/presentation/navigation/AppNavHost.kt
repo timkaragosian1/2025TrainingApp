@@ -23,7 +23,7 @@ fun AppNavHost(navController: NavHostController) {
 
     NavHost(
         navController = navController,
-        startDestination = homeScreen
+        startDestination = signInScreen
     ) {
         composable(signInScreen) {
             SignInRoute(
@@ -34,6 +34,7 @@ fun AppNavHost(navController: NavHostController) {
                 }
             )
         }
+
         composable(homeScreen) {
             HomeScreen(
                 onSubmit = { inputValue ->
