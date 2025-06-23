@@ -122,6 +122,8 @@ dependencies {
     testImplementation(libs.room.testing)
     testImplementation(libs.robolectric)
     testImplementation("org.slf4j:slf4j-simple:2.0.13")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
+
 
 
     // Compose Tooling
