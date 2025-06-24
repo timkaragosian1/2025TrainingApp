@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.timkaragosian.proflowapp.R
+import com.timkaragosian.proflowapp.data.network.TodoDto
 import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultScreen
 import com.timkaragosian.proflowapp.presentation.history.HistoryScreen
 import com.timkaragosian.proflowapp.presentation.home.HomeScreen
@@ -38,23 +39,33 @@ fun AppNavHost(navController: NavHostController) {
 
         composable(homeScreen) {
             HomeScreen(
-                onTaskResults = { inputValue ->
-                    navController.navigate("$flowResultScreen/$inputValue")
+                onTaskResults = {id, todoText, completed, timestamp ->
+                    navController.navigate("$flowResultScreen/$id$todoText$completed$timestamp")
                 },
                 onNavigateToHistory = {
                     navController.navigate(historyScreen)
                 },
-                onNewToDoSubmit = {toDoText ->
-                    //submit to do text
-                }
             )
         }
         composable(
-            route = "$flowResultScreen/{result}",
-            arguments = listOf(navArgument("result") { type = NavType.StringType })
+            route = "$flowResultScreen/{todoItem}",
+            arguments = listOf(
+                navArgument("id") { type = NavType.StringType },
+                navArgument("todoText") { type = NavType.StringType },
+                navArgument("completed") { type = NavType.BoolType },
+                navArgument("timestamp") { type = NavType.LongType },
+            )
         ) { backStackEntry ->
-            val result = backStackEntry.arguments?.getString("result") ?: ""
-            FlowResultScreen(result = result)
+            val todoTask = TodoDto(
+                id = backStackEntry.arguments?.getString("id") ?: "",
+                todo = backStackEntry.arguments?.getString("id") ?: "",
+                completed = backStackEntry.arguments?.getBoolean("completed") ?: false,
+                timestamp = backStackEntry.arguments?.getLong("timestamp") ?: 0L,
+            )
+            FlowResultScreen(
+                todoDto = todoTask,
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
 
         composable(historyScreen){

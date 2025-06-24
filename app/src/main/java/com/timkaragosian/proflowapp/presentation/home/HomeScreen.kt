@@ -38,7 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     vm: HomeViewModel = koinViewModel(),
-    onTaskResults: (String) -> Unit,
+    onTaskResults: (String, String, Boolean, Long) -> Unit,
     onNavigateToHistory: () -> Unit,
 ) {
     val todoList by vm.todoList.collectAsState()
@@ -149,7 +149,11 @@ fun HomeScreen(
                     modifier = Modifier.testTag("todo_text_$index")
                 )
                 Button(
-                    onClick = { onTaskResults(todoItem.todo) },
+                    onClick = { onTaskResults(
+                        todoItem.id,
+                        todoItem.todo,
+                        todoItem.completed,
+                        todoItem.timestamp ) },
                     modifier = Modifier.testTag("submit_button_$index")
                 ) {
                     Text(text = stringResource(id = R.string.goto_result_screen))

@@ -13,6 +13,7 @@ import com.timkaragosian.proflowapp.domain.auth.FakeAuthRepository
 import com.timkaragosian.proflowapp.domain.usecase.home.GetTodoUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.ObserveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
+import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultViewModel
 import com.timkaragosian.proflowapp.presentation.home.HomeViewModel
 import com.timkaragosian.proflowapp.presentation.signin.SignInViewModel
 import org.koin.android.ext.koin.androidContext
@@ -26,6 +27,7 @@ val appModules = module {
     single { TodoRepositoryImpl(get()) }
     single { GetTodoUseCase(get()) }
     viewModel { HomeViewModel(get(),get(),get() ) }
+    viewModel { FlowResultViewModel(get(),get() ) }
 
     single { HistoryRepositoryImpl(get()) }
     single { SaveHistoryUseCase(get()) }
