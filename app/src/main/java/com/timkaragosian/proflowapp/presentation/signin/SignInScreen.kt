@@ -30,6 +30,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,6 +50,7 @@ fun SignInScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
+        modifier = modifier,
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState)}
     ){ padding ->
@@ -82,6 +84,7 @@ fun SignInScreen(
                 singleLine = true,
                 leadingIcon = { Icon(Icons.Default.Person, null) },
                 modifier = Modifier.fillMaxWidth()
+                        .testTag("OutlinedTextField_username")
             )
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -94,6 +97,7 @@ fun SignInScreen(
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth()
+                    .testTag("OutlinedTextField_password")
             )
 
             Spacer(modifier = Modifier.height(24.dp))

@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class SignInViewModel(
     private val strings: ResourceProvider,
     private val repo: AuthRepository
-):ViewModel() {
+): ViewModel() {
 
     //UI state
     private val _state = MutableStateFlow(SignInState())

@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.timkaragosian.proflowapp"
     compileSdk = 35
 
@@ -108,6 +109,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.ui.test.junit4.android)
     kapt(libs.room.compiler)
 
     // Testing
@@ -121,11 +123,12 @@ dependencies {
     testImplementation(libs.core.ktx)
     testImplementation(libs.room.testing)
     testImplementation(libs.robolectric)
-    testImplementation("org.slf4j:slf4j-simple:2.0.13")
-    testImplementation("app.cash.turbine:turbine:1.0.0")
-
+    testImplementation(libs.slf4j.simple)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.androidx.ui.test.junit4.vcomposeversion)
 
 
     // Compose Tooling
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.0")
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

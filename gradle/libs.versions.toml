@@ -1,7 +1,7 @@
 [versions]
 agp = "8.4.1"
 coreKtx = "1.5.0"
-espressoCore = "3.5.1"
+espressoCore = "3.5.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 koinAndroidxCompose = "3.5.3"
@@ -15,11 +15,15 @@ material3 = "1.2.0"
 mockk = "1.13.10"
 navigationCompose = "2.7.7"
 robolectric = "4.12.2"
+slf4jSimple = "2.0.13"
+turbine = "1.0.0"
 ui = "1.6.0"
 ktor           = "2.3.8"
 serialization  = "1.6.3"
 room = "2.6.1"
 junitKtx = "1.2.1"
+uiTestJunit4 = "<compose-version>"
+uiTestJunit4Android = "1.8.3"
 
 
 [libraries]
@@ -34,6 +38,9 @@ androidx-material3 = { module = "androidx.compose.material3:material3", version.
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "ui" }
+androidx-ui-test-junit4-vcomposeversion = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestJunit4" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "ui" }
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "coreKtx" }
 junit = { module = "junit:junit", version.ref = "junit" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroidxCompose" }
@@ -53,6 +60,9 @@ room-ktx        = { module = "androidx.room:room-ktx",                version.re
 room-compiler   = { module = "androidx.room:room-compiler",           version.ref = "room" }   # annotation processor
 room-testing    = { module = "androidx.room:room-testing",           version.ref = "room" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
