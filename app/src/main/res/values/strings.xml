@@ -2,7 +2,8 @@
     <string name="app_name">ProFlowApp</string>
 
     <string name="flow_result">Flow Result Screen - Result:</string>
-    <string name="home_message">Home - tap to fetch TODO</string>
+    <string name="home_title">Home Screen - Manage To Do Tasks</string>
+    <string name="home_button">Tap to fetch TODO list</string>
     <string name="fetch_todo_list">Fetch To Do List</string>
     <string name="fetched">Fetched:</string>
     <string name="goto_result_screen">Go to Result Screen</string>

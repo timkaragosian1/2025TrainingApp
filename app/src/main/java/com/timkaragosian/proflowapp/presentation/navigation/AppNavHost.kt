@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.timkaragosian.proflowapp.R
 import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultScreen
+import com.timkaragosian.proflowapp.presentation.history.HistoryScreen
 import com.timkaragosian.proflowapp.presentation.home.HomeScreen
 import com.timkaragosian.proflowapp.presentation.signin.SignInRoute
 import com.timkaragosian.proflowapp.presentation.signin.SignInScreen
@@ -37,8 +38,14 @@ fun AppNavHost(navController: NavHostController) {
 
         composable(homeScreen) {
             HomeScreen(
-                onSubmit = { inputValue ->
+                onTaskResults = { inputValue ->
                     navController.navigate("$flowResultScreen/$inputValue")
+                },
+                onNavigateToHistory = {
+                    navController.navigate(historyScreen)
+                },
+                onNewToDoSubmit = {toDoText ->
+                    //submit to do text
                 }
             )
         }
@@ -48,6 +55,12 @@ fun AppNavHost(navController: NavHostController) {
         ) { backStackEntry ->
             val result = backStackEntry.arguments?.getString("result") ?: ""
             FlowResultScreen(result = result)
+        }
+
+        composable(historyScreen){
+            HistoryScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
     }
 }

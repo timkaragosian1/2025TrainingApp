@@ -20,17 +20,14 @@ class HomeViewModel(
     private val saveHistory: SaveHistoryUseCase,
     private val observeHistory: ObserveHistoryUseCase
 ) : ViewModel() {
-    private val _todoList = MutableStateFlow<List<TodoDto?>>(emptyList())
-    val todoList:StateFlow<List<TodoDto?>> = _todoList
 
-    private val _history = observeHistory().stateIn(
-        viewModelScope,
-        SharingStarted.Eagerly,
-        emptyList()
-    )
-    val history: StateFlow<List<HistoryEntry>> = _history
+    private val _todoList = MutableStateFlow<List<TodoDto>>(emptyList())
+    val todoList: StateFlow<List<TodoDto>> = _todoList
+
+    val history: StateFlow<List<HistoryEntry>> = observeHistory()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     fun loadSample() = viewModelScope.launch {
-        getTodo().collect { _todoList.value = it }
+        getTodo().collect { _todoList.value = it.filterNotNull() }
     }
 }
