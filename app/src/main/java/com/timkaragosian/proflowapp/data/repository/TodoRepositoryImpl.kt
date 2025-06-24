@@ -9,4 +9,7 @@ class TodoRepositoryImpl(
 ) {
     suspend fun fetchTodoList(): List<TodoDto> = api.getTodoList()
     suspend fun addItem(todoItem: TodoDto):HttpResponse = api.postItem(todoItem)
+    suspend fun deleteItem(id:String):HttpResponse = api.removeTodoItem(id)
+    suspend fun completeItem(id:String):HttpResponse = api.completeItem(id)
+
 }

@@ -74,6 +74,7 @@ fun HomeScreen(
                                 )
                             )
                             vm.insertHistoryOnAction("Inserted Todo Task: ${ newTodoText.value } at ${System.currentTimeMillis()}")
+                            vm.loadTodoList()
                         },
                         enabled = newTodoText.value.isNotBlank()
                     ) {
