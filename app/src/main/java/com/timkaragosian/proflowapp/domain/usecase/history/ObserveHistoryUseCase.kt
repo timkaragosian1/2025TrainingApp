@@ -1,4 +1,4 @@
-package com.timkaragosian.proflowapp.domain.usecase
+package com.timkaragosian.proflowapp.domain.usecase.history
 
 import com.timkaragosian.proflowapp.data.repository.HistoryRepositoryImpl
 import com.timkaragosian.proflowapp.domain.model.HistoryEntry

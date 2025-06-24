@@ -7,5 +7,5 @@ data class TodoDto(
     val id: String,
     val todo:String,
     val completed: Boolean,
-    val timestamp: Int
+    val timestamp: Long
 )

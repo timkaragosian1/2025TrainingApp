@@ -33,18 +33,20 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.timkaragosian.proflowapp.R
+import com.timkaragosian.proflowapp.data.network.TodoDto
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
     vm: HomeViewModel = koinViewModel(),
     onTaskResults: (String) -> Unit,
-    onNewToDoSubmit: (String) -> Unit,
     onNavigateToHistory: () -> Unit,
 ) {
     val todoList by vm.todoList.collectAsState()
     var showAddTodoDialog = remember { mutableStateOf(false) }
     var newTodoText = remember { mutableStateOf("") }
+
+    vm.loadSample()
 
     when (showAddTodoDialog.value){
         true -> {
@@ -64,7 +66,14 @@ fun HomeScreen(
                 confirmButton = {
                     Button(
                         onClick = {
-                            onNewToDoSubmit(newTodoText.value)
+                            vm.addTodoItem(
+                                TodoDto(
+                                    id = "${System.currentTimeMillis()}${newTodoText.value}",
+                                    todo = newTodoText.value,
+                                    completed = false,
+                                    timestamp = System.currentTimeMillis()
+                                )
+                            )
                         },
                         enabled = newTodoText.value.isNotBlank()
                     ) {
@@ -101,7 +110,8 @@ fun HomeScreen(
                 ) {
                     Button(
                         onClick = { onNavigateToHistory() },
-                        modifier = Modifier.testTag("history_button")
+                        modifier = Modifier
+                            .testTag("history_button")
                             .padding(start = 2.dp, end = 2.dp)
                     ) {
                         Text("History")

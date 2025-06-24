@@ -10,9 +10,9 @@ import com.timkaragosian.proflowapp.data.resourcesprovider.FlowAppResourceProvid
 import com.timkaragosian.proflowapp.data.resourcesprovider.ResourceProvider
 import com.timkaragosian.proflowapp.domain.auth.AuthRepository
 import com.timkaragosian.proflowapp.domain.auth.FakeAuthRepository
-import com.timkaragosian.proflowapp.domain.usecase.GetTodoUseCase
-import com.timkaragosian.proflowapp.domain.usecase.ObserveHistoryUseCase
-import com.timkaragosian.proflowapp.domain.usecase.SaveHistoryUseCase
+import com.timkaragosian.proflowapp.domain.usecase.home.GetTodoUseCase
+import com.timkaragosian.proflowapp.domain.usecase.history.ObserveHistoryUseCase
+import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
 import com.timkaragosian.proflowapp.presentation.home.HomeViewModel
 import com.timkaragosian.proflowapp.presentation.signin.SignInViewModel
 import org.koin.android.ext.koin.androidContext
