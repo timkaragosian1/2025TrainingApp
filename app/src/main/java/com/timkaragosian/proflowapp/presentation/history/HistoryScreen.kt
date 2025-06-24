@@ -15,12 +15,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.timkaragosian.proflowapp.domain.model.HistoryEntry
+import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
     onNavigateBack: () -> Unit
 ) {
+//        val history: StateFlow<List<HistoryEntry>> = observeHistory() //MOVE TO HISTORYSCREEN
+//        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
     Scaffold(
         topBar = {
             TopAppBar(

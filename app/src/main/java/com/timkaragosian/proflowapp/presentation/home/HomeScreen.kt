@@ -3,7 +3,6 @@ package com.timkaragosian.proflowapp.presentation.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,7 +45,7 @@ fun HomeScreen(
     var showAddTodoDialog = remember { mutableStateOf(false) }
     var newTodoText = remember { mutableStateOf("") }
 
-    vm.loadSample()
+    vm.loadTodoList()
 
     when (showAddTodoDialog.value){
         true -> {
@@ -74,6 +73,7 @@ fun HomeScreen(
                                     timestamp = System.currentTimeMillis()
                                 )
                             )
+                            vm.insertHistoryOnAction("Inserted Todo Task: ${ newTodoText.value } at ${System.currentTimeMillis()}")
                         },
                         enabled = newTodoText.value.isNotBlank()
                     ) {
@@ -135,7 +135,7 @@ fun HomeScreen(
             Spacer(Modifier.height(12.dp))
 
             Button(
-                onClick = { vm.loadSample() },
+                onClick = { vm.loadTodoList() },
                 modifier = Modifier.testTag("load_button")
             ) {
                 Text(text = stringResource(id = R.string.home_button))
