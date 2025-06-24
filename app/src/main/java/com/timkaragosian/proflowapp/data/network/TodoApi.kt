@@ -13,6 +13,6 @@ class TodoApi(
 ) {
     suspend fun getTodoList(): List<TodoDto> = client.get("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/getlist").body()
     suspend fun removeTodoItem(id:String) = client.post("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/removeitem?id=$id")
-    suspend fun postItem(todoItem:TodoDto) = client.post("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/removeitem?todo=${todoItem.todo}&completed=${todoItem.completed}&timestamp=${todoItem.timestamp}")
-    suspend fun completeItem(id:String) = client.post("")
+    suspend fun postItem(todoItem:TodoDto) = client.post("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/additem?todo=${todoItem.todo}&completed=${todoItem.completed}&timestamp=${todoItem.timestamp}")
+    suspend fun completeItem(id:String) = client.post("https://y7fx79maa9.execute-api.us-east-2.amazonaws.com/apikey/flowapp/completeItem?id=$id")
 }
