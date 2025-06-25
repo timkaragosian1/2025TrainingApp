@@ -115,7 +115,6 @@ class HomeScreenTest {
         }
 
         composeTestRule.onNodeWithTag("todo_text_0").assertTextContains("Sample task", substring = true)
-
         composeTestRule.onNodeWithTag("submit_button_0").performClick()
         assert(resultTriggered)
     }
