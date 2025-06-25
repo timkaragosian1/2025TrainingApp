@@ -27,7 +27,7 @@ import org.koin.dsl.module
 val appModules = module {
     single { HttpClientProvider.instance }
 
-    single { TodoApi(get(), get()) }
+    single { TodoApi(get()) }
     single { TodoRepositoryImpl(get()) }
     single { GetTodoUseCase(get()) }
     single { DeleteTodoTaskUseCase(get()) }

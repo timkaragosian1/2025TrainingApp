@@ -1,6 +1,7 @@
 package com.timkaragosian.proflowapp.presentation.flowresult
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,24 +54,28 @@ fun FlowResultScreen(
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("To Do Details")
-            Spacer(modifier = Modifier.height(12.dp))
-            Text("Todo Task: ${todoDto.todo}")
-            Spacer(modifier = Modifier.height(2.dp))
-            Text("Completed: ${todoDto.completed}")
-            Spacer(modifier = Modifier.height(2.dp))
-            Text("Timestamp: ${todoDto.timestamp}")
-            Spacer(modifier = Modifier.height(12.dp))
-            Button(onClick = {
-                viewModel.completeTodo(todoDto.id)
-            }) {
-                Text(text = "Complete")
-            }
-            Spacer(modifier = Modifier.height(5.dp))
-            Button(onClick = {
-                viewModel.deleteTodo(todoDto.id)
-            }) {
-                Text(text = "Delete")
+            Column {
+                Text("To Do Details")
+                Spacer(modifier = Modifier.height(12.dp))
+                Text("Todo Task: ${todoDto.todo}")
+                Spacer(modifier = Modifier.height(2.dp))
+                Text("Completed: ${todoDto.completed}")
+                Spacer(modifier = Modifier.height(2.dp))
+                Text("Timestamp: ${todoDto.timestamp}")
+                Spacer(modifier = Modifier.height(12.dp))
+                Button(onClick = {
+                    viewModel.completeTodo(todoDto.id)
+                    onNavigateBack()
+                }) {
+                    Text(text = "Complete")
+                }
+                Spacer(modifier = Modifier.height(5.dp))
+                Button(onClick = {
+                    viewModel.deleteTodo(todoDto.id)
+                    onNavigateBack()
+                }) {
+                    Text(text = "Delete")
+                }
             }
         }
     }

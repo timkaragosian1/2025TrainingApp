@@ -1,8 +1,6 @@
 package com.timkaragosian.proflowapp.data.network
 
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.timkaragosian.proflowapp.data.resourcesprovider.FlowAppResourceProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -17,7 +15,6 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
 @RunWith(AndroidJUnit4::class)
 class TodoApiTest {
@@ -39,9 +36,7 @@ class TodoApiTest {
             }
         }
 
-        val resourceProvider = FlowAppResourceProvider(ApplicationProvider.getApplicationContext())
-
-        val api = TodoApi(client, strings = resourceProvider)
+        val api = TodoApi(client)
         val dto = api.getTodoList()
 
         assertEquals("0", dto[0].id)
