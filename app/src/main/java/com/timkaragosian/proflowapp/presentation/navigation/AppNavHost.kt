@@ -40,15 +40,16 @@ fun AppNavHost(navController: NavHostController) {
         composable(homeScreen) {
             HomeScreen(
                 onTaskResults = {id, todoText, completed, timestamp ->
-                    navController.navigate("$flowResultScreen/$id$todoText$completed$timestamp")
+                    navController.navigate("$flowResultScreen/$id/$todoText/$completed/$timestamp")
                 },
                 onNavigateToHistory = {
                     navController.navigate(historyScreen)
                 },
             )
         }
+
         composable(
-            route = "$flowResultScreen/{todoItem}",
+            route = "$flowResultScreen/{id}/{todoText}/{completed}/{timestamp}",
             arguments = listOf(
                 navArgument("id") { type = NavType.StringType },
                 navArgument("todoText") { type = NavType.StringType },
@@ -58,7 +59,7 @@ fun AppNavHost(navController: NavHostController) {
         ) { backStackEntry ->
             val todoTask = TodoDto(
                 id = backStackEntry.arguments?.getString("id") ?: "",
-                todo = backStackEntry.arguments?.getString("id") ?: "",
+                todo = backStackEntry.arguments?.getString("todoText") ?: "",
                 completed = backStackEntry.arguments?.getBoolean("completed") ?: false,
                 timestamp = backStackEntry.arguments?.getLong("timestamp") ?: 0L,
             )

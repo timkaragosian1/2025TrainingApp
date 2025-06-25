@@ -10,10 +10,14 @@ import com.timkaragosian.proflowapp.data.resourcesprovider.FlowAppResourceProvid
 import com.timkaragosian.proflowapp.data.resourcesprovider.ResourceProvider
 import com.timkaragosian.proflowapp.domain.auth.AuthRepository
 import com.timkaragosian.proflowapp.domain.auth.FakeAuthRepository
+import com.timkaragosian.proflowapp.domain.usecase.flowresult.CompleteTodoTaskUseCase
+import com.timkaragosian.proflowapp.domain.usecase.flowresult.DeleteTodoTaskUseCase
 import com.timkaragosian.proflowapp.domain.usecase.home.GetTodoUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.ObserveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
+import com.timkaragosian.proflowapp.domain.usecase.home.AddItemUseCase
 import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultViewModel
+import com.timkaragosian.proflowapp.presentation.history.HistoryViewModel
 import com.timkaragosian.proflowapp.presentation.home.HomeViewModel
 import com.timkaragosian.proflowapp.presentation.signin.SignInViewModel
 import org.koin.android.ext.koin.androidContext
@@ -26,13 +30,17 @@ val appModules = module {
     single { TodoApi(get(), get()) }
     single { TodoRepositoryImpl(get()) }
     single { GetTodoUseCase(get()) }
+    single { DeleteTodoTaskUseCase(get()) }
+    single { CompleteTodoTaskUseCase(get()) }
     viewModel { HomeViewModel(get(),get(),get() ) }
     viewModel { FlowResultViewModel(get(),get() ) }
 
     single { HistoryRepositoryImpl(get()) }
     single { SaveHistoryUseCase(get()) }
     single { ObserveHistoryUseCase(get()) }
+    single { AddItemUseCase(get()) }
     single { FlowAppResourceProvider(androidContext()) }
+    viewModel { HistoryViewModel(get() ) }
 
     single<AuthRepository> { FakeAuthRepository() }
     single<ResourceProvider> { FlowAppResourceProvider(androidContext()) }
