@@ -23,6 +23,10 @@ android {
         }
     }
 
+    testOptions{
+        unitTests.isIncludeAndroidResources = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.*
 class GetTodoUseCase(
     private val repo: TodoRepositoryImpl
 ) {
-    operator fun invoke(): Flow<List<TodoDto>> = flow {
+    operator fun invoke(): Flow<List<TodoDto?>> = flow {
         emit(repo.fetchTodoList())
     }.flowOn(Dispatchers.IO)
 }
