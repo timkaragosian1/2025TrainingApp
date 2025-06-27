@@ -18,7 +18,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+@Config(sdk = [34])
 @RunWith(RobolectricTestRunner::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class HistoryRepositoryTest {
@@ -45,7 +47,7 @@ class HistoryRepositoryTest {
 
     @Test
     fun insertAndObserveHistoryTest() = runTest(testDispatcher) {
-        repo.save("First")
+        repo.save("First", 0)
 
         val values = repo.observeHistory().first()
 
