@@ -1,9 +1,12 @@
 package com.timkaragosian.proflowapp.di
 
+import com.timkaragosian.proflowapp.domain.usecase.flowresult.CompleteTodoTaskUseCase
+import com.timkaragosian.proflowapp.domain.usecase.flowresult.DeleteTodoTaskUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.ObserveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.home.AddItemUseCase
 import com.timkaragosian.proflowapp.domain.usecase.home.GetTodoUseCase
+import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultViewModel
 import com.timkaragosian.proflowapp.presentation.history.HistoryViewModel
 import com.timkaragosian.proflowapp.presentation.home.HomeViewModel
 import io.mockk.mockk
@@ -15,6 +18,9 @@ val testModule = module {
     single<AddItemUseCase> { mockk(relaxed = true) }
     single<SaveHistoryUseCase> { mockk(relaxed = true) }
     single<ObserveHistoryUseCase> { mockk(relaxed = true) }
+    single<DeleteTodoTaskUseCase> { mockk(relaxed = true) }
+    single<CompleteTodoTaskUseCase> { mockk(relaxed = true) }
+
 
     viewModel {
         HomeViewModel(
@@ -24,9 +30,7 @@ val testModule = module {
         )
     }
 
-    viewModel {
-        HistoryViewModel(
-            observeHistory = get()
-        )
-    }
+    viewModel { HistoryViewModel(observeHistory = get()) }
+
+    viewModel{ FlowResultViewModel(get(),get()) }
 }

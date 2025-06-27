@@ -65,7 +65,7 @@ fun AppNavHost(navController: NavHostController) {
             )
             FlowResultScreen(
                 todoDto = todoTask,
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
             )
         }
 

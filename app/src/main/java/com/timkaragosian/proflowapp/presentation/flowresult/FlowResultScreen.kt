@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,10 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import com.timkaragosian.proflowapp.R
 import com.timkaragosian.proflowapp.data.network.TodoDto
 import org.koin.androidx.compose.koinViewModel
 
@@ -33,7 +29,7 @@ import org.koin.androidx.compose.koinViewModel
 fun FlowResultScreen(
     todoDto: TodoDto,
     onNavigateBack: () -> Unit,
-    viewModel: FlowResultViewModel = koinViewModel()
+    vm: FlowResultViewModel = koinViewModel()
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -43,40 +39,50 @@ fun FlowResultScreen(
                 title = { Text("History") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
                 }
             )
         }
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Column {
-                Text("To Do Details")
-                Spacer(modifier = Modifier.height(12.dp))
-                Text("Todo Task: ${todoDto.todo}")
-                Spacer(modifier = Modifier.height(2.dp))
-                Text("Completed: ${todoDto.completed}")
-                Spacer(modifier = Modifier.height(2.dp))
-                Text("Timestamp: ${todoDto.timestamp}")
-                Spacer(modifier = Modifier.height(12.dp))
-                Button(onClick = {
-                    viewModel.completeTodo(todoDto.id)
-                    onNavigateBack()
-                }) {
-                    Text(text = "Complete")
-                }
-                Spacer(modifier = Modifier.height(5.dp))
-                Button(onClick = {
-                    viewModel.deleteTodo(todoDto.id)
-                    onNavigateBack()
-                }) {
-                    Text(text = "Delete")
-                }
+    ) { paddingValues ->
+        FlowResultContent(
+            todoDto = todoDto,
+            onComplete = { vm.completeTodo(todoDto.id) },
+            onDelete = { vm.deleteTodo(todoDto.id) },
+            modifier = Modifier.padding(paddingValues)
+        )
+    }
+}
+
+@Composable
+fun FlowResultContent(
+    todoDto: TodoDto,
+    onComplete: () -> Unit,
+    onDelete: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.Start) {
+            Text(text = "To Do Details")
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(text = "Todo Task: ${todoDto.todo}")
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = "Completed: ${todoDto.completed}")
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = "Timestamp: ${todoDto.timestamp}")
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = onComplete) {
+                Text(text = "Complete")
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(onClick = onDelete) {
+                Text(text = "Delete")
             }
         }
     }

@@ -5,6 +5,8 @@ espressoCore = "3.5.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 koinAndroidxCompose = "3.5.3"
+koinTest = "3.5.3"
+koinTestJunit4 = "3.5.3"
 kotlin = "1.9.23"
 activityCompose = "1.10.1"
 kotlinxCoroutinesCore = "1.8.0"
@@ -24,6 +26,7 @@ room = "2.6.1"
 junitKtx = "1.2.1"
 uiTestJunit4 = "<compose-version>"
 uiTestJunit4Android = "1.8.3"
+uiTestJunit4Version = "<version>"
 
 
 [libraries]
@@ -45,6 +48,8 @@ core-ktx = { module = "androidx.test:core-ktx", version.ref = "coreKtx" }
 junit = { module = "junit:junit", version.ref = "junit" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroidxCompose" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinTest" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinTestJunit4" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesCore" }

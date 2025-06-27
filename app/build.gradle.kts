@@ -129,6 +129,8 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.slf4j.simple)
     testImplementation(libs.turbine)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
     androidTestImplementation(libs.androidx.ui.test.junit4.vcomposeversion)
 
 
