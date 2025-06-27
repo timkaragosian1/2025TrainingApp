@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 class TodoApiTest {
     @Test
     fun todoApiParsesResponse() = runTest {
-        val mockEngine = MockEngine { request ->
+        val mockEngine = MockEngine {
             respond(
                 content = """
                     [{"id":"0","todo":"first to do","completed":false,"timestamp":0}]
