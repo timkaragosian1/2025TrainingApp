@@ -8,5 +8,5 @@ import java.time.Instant
 data class HistoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val inputText: String,
-    val time: Long = Instant.now().epochSecond
+    val time: Long,
 )

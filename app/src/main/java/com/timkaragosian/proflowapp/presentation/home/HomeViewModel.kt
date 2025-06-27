@@ -15,7 +15,6 @@ class HomeViewModel(
     private val getTodo: GetTodoUseCase,
     private val addItem: AddItemUseCase,
     private val saveHistory: SaveHistoryUseCase,
-    //private val observeHistory: ObserveHistoryUseCase
 ) : ViewModel() {
 
     private val _todoList = MutableStateFlow<List<TodoDto>>(emptyList())

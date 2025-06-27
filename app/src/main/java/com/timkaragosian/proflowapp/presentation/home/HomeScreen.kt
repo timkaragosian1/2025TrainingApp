@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.timkaragosian.proflowapp.R
 import com.timkaragosian.proflowapp.data.network.TodoDto
 import org.koin.androidx.compose.koinViewModel
+import java.util.Date
 
 @Composable
 fun HomeScreen(
@@ -73,7 +74,8 @@ fun HomeScreen(
                                     timestamp = System.currentTimeMillis()
                                 )
                             )
-                            vm.insertHistoryOnAction("Inserted Todo Task: ${ newTodoText.value } at ${System.currentTimeMillis()}")
+                            showAddTodoDialog.value = false
+                            vm.insertHistoryOnAction("Inserted Todo Task: ${ newTodoText.value } at timestamp ${System.currentTimeMillis()}")
                             vm.loadTodoList()
                         },
                         enabled = newTodoText.value.isNotBlank()

@@ -11,7 +11,7 @@ class HistoryRepositoryImpl(private val dao: HistoryDao) {
     fun observeHistory(): Flow<List<HistoryEntry>> =
         dao.observeAll().map { list -> list.map { it.asDomain() } }
 
-    suspend fun save(text: String){
-        dao.insert(HistoryEntity(inputText = text))
+    suspend fun save(text: String, time:Long){
+        dao.insert(HistoryEntity(inputText = text, time = time))
     }
 }
