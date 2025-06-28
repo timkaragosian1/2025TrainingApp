@@ -131,6 +131,7 @@ dependencies {
     testImplementation(libs.turbine)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
+    testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.ui.test.junit4.vcomposeversion)
 
 
