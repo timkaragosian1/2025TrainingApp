@@ -9,9 +9,14 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.timkaragosian.proflowapp.data.network.TodoDto
 import com.timkaragosian.proflowapp.di.testModule
+import com.timkaragosian.proflowapp.domain.usecase.flowresult.CompleteTodoTaskUseCase
+import com.timkaragosian.proflowapp.domain.usecase.flowresult.DeleteTodoTaskUseCase
+import com.timkaragosian.proflowapp.domain.usecase.history.ObserveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.home.AddItemUseCase
 import com.timkaragosian.proflowapp.domain.usecase.home.GetTodoUseCase
+import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultViewModel
+import com.timkaragosian.proflowapp.presentation.history.HistoryViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -25,8 +30,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.dsl.module
 import org.robolectric.annotation.Config
 
 @Config(sdk = [34])
@@ -55,7 +62,7 @@ class HomeScreenTest {
         stopKoin()
         startKoin {
             androidContext(ApplicationProvider.getApplicationContext())
-            modules(testModule)
+            modules(homeTestModule)
         }
         Dispatchers.setMain(Dispatchers.Unconfined)
         coEvery { getTodo() } returns flowOf(listOf(dummyTodo))
@@ -133,5 +140,19 @@ class HomeScreenTest {
 
         composeTestRule.onNodeWithTag("history_button").performClick()
         assert(historyClicked)
+    }
+
+    val homeTestModule = module {
+        single<GetTodoUseCase> { mockk(relaxed = true) }
+        single<AddItemUseCase> { mockk(relaxed = true) }
+        single<SaveHistoryUseCase> { mockk(relaxed = true) }
+
+        viewModel {
+            HomeViewModel(
+                getTodo = get(),
+                addItem = get(),
+                saveHistory = get()
+            )
+        }
     }
 }

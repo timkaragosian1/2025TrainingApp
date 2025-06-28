@@ -15,8 +15,11 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
-@RunWith(AndroidJUnit4::class)
+@Config(sdk = [34])
+@RunWith(RobolectricTestRunner::class)
 class TodoApiTest {
     @Test
     fun todoApiParsesResponse() = runTest {
