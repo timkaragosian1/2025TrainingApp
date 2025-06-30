@@ -12,6 +12,7 @@ import com.timkaragosian.proflowapp.data.network.TodoDto
 import com.timkaragosian.proflowapp.presentation.flowresult.FlowResultScreen
 import com.timkaragosian.proflowapp.presentation.history.HistoryScreen
 import com.timkaragosian.proflowapp.presentation.home.HomeScreen
+import com.timkaragosian.proflowapp.presentation.home.HomeScreenContainer
 import com.timkaragosian.proflowapp.presentation.signin.SignInRoute
 import com.timkaragosian.proflowapp.presentation.signin.SignInScreen
 import org.koin.androidx.compose.get
@@ -38,13 +39,11 @@ fun AppNavHost(navController: NavHostController) {
         }
 
         composable(homeScreen) {
-            HomeScreen(
-                onTaskResults = {id, todoText, completed, timestamp ->
-                    navController.navigate("$flowResultScreen/$id/$todoText/$completed/$timestamp")
-                },
-                onNavigateToHistory = {
-                    navController.navigate(historyScreen)
-                },
+            HomeScreenContainer(
+                onNavigateToHistory = { navController.navigate("history") },
+                onTaskResults = { todo ->
+                    val route = "$flowResultScreen/${todo.id}/${todo.todo}/${todo.completed}/${todo.timestamp}"
+                    navController.navigate(route)                }
             )
         }
 

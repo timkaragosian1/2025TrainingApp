@@ -14,19 +14,63 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val getTodo: GetTodoUseCase,
     private val addItem: AddItemUseCase,
-    private val saveHistory: SaveHistoryUseCase,
+    private val saveHistory: SaveHistoryUseCase
 ) : ViewModel() {
 
     private val _todoList = MutableStateFlow<List<TodoDto>>(emptyList())
     val todoList: StateFlow<List<TodoDto>> = _todoList
 
-    fun loadTodoList() = viewModelScope.launch {
-        getTodo().collect { _todoList.value = it.filterNotNull() }
+    private val _showAddDialog = MutableStateFlow(false)
+    val showAddDialog: StateFlow<Boolean> = _showAddDialog
+
+    private val _newTodoText = MutableStateFlow("")
+    val newTodoText: StateFlow<String> = _newTodoText
+
+    fun loadTodoList() {
+        viewModelScope.launch {
+            getTodo().collect { list ->
+                _todoList.value = list.filterNotNull()
+            }
+        }
     }
 
-    fun addTodoItem(todoDto: TodoDto) = viewModelScope.launch { addItem(todoDto) }
+    fun onTodoTextChange(text: String) {
+        _newTodoText.value = text
+    }
 
-    fun insertHistoryOnAction(text:String) = viewModelScope.launch {
-        saveHistory(text)
+    fun onAddTodoClicked() {
+        _showAddDialog.value = true
+    }
+
+    fun onDismissDialog() {
+        _showAddDialog.value = false
+    }
+
+    fun onConfirmAddTodo() {
+        val todoText = _newTodoText.value.trim()
+        if (todoText.isBlank()) return
+
+        val timestamp = System.currentTimeMillis()
+        val newTodo = TodoDto(
+            id = "$timestamp$todoText",
+            todo = todoText,
+            completed = false,
+            timestamp = timestamp
+        )
+
+        viewModelScope.launch {
+            addItem(newTodo)
+            saveHistory("Inserted Todo Task: $todoText at timestamp $timestamp")
+            loadTodoList()
+        }
+
+        _newTodoText.value = ""
+        _showAddDialog.value = false
+    }
+
+    fun insertHistoryOnAction(actionText: String) {
+        viewModelScope.launch {
+            saveHistory(actionText)
+        }
     }
 }

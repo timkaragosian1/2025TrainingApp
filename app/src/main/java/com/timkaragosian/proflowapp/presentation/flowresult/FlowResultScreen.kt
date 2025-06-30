@@ -50,8 +50,14 @@ fun FlowResultScreen(
     ) { paddingValues ->
         FlowResultContent(
             todoDto = todoDto,
-            onComplete = { vm.completeTodo(todoDto.id) },
-            onDelete = { vm.deleteTodo(todoDto.id) },
+            onComplete = {
+                vm.completeTodo(todoDto.id)
+                onNavigateBack()
+                         },
+            onDelete = {
+                vm.deleteTodo(todoDto.id)
+                onNavigateBack()
+                       },
             modifier = Modifier.padding(paddingValues)
         )
     }

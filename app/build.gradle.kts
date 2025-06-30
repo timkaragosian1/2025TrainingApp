@@ -76,8 +76,13 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+            excludes += setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "META-INF/DEPENDENCIES",
+                "META-INF/AL2.0",
+                "META-INF/LGPL2.1"
+            )        }
     }
 }
 
@@ -133,6 +138,7 @@ dependencies {
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.ui.test.junit4.vcomposeversion)
+    androidTestImplementation(libs.mockk.android) // For instrumented tests in `androidTest/`
 
 
     // Compose Tooling
