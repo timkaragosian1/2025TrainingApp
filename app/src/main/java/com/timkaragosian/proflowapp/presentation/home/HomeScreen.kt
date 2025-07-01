@@ -34,14 +34,14 @@ import com.timkaragosian.proflowapp.data.network.TodoDto
 @Composable
 fun HomeScreen(
     state: HomeUiState,
-    onTodoSubmit: (TodoDto) -> Unit,
     getTodoList: () -> Unit,
     insertHistoryOnAction: (String) -> Unit,
     onNavigateToHistory: () -> Unit,
+    onLogout: () -> Unit,
     onNavigateToTaskDetails: (String, String, Boolean, Long) -> Unit,
     onTodoTextChange: (String) -> Unit,
     onAddTodoClicked: () -> Unit,
-    onConfirmAddTodo: () -> Unit,
+    onConfirmAddTodo: (String) -> Unit,
     onDismissDialog: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
@@ -64,7 +64,10 @@ fun HomeScreen(
             },
             confirmButton = {
                 Button(
-                    onClick = onConfirmAddTodo,
+                    onClick = {
+                        onConfirmAddTodo(state.newTodoText)
+                        insertHistoryOnAction(state.newTodoText)
+                              },
                     enabled = state.newTodoText.isNotBlank()
                 ) {
                     Text("Add")
@@ -103,6 +106,14 @@ fun HomeScreen(
                             .padding(horizontal = 2.dp)
                     ) {
                         Text("History")
+                    }
+                    Button(
+                        onClick = onLogout,
+                        modifier = Modifier
+                            .testTag("logout_button")
+                            .padding(horizontal = 2.dp)
+                    ) {
+                        Text("Logout")
                     }
                 }
             }

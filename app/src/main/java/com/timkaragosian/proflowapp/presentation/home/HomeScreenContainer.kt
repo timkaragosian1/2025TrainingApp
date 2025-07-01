@@ -10,6 +10,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreenContainer(
     vm: HomeViewModel = koinViewModel(),
     onNavigateToHistory: () -> Unit,
+    onLogout: () -> Unit,
     onTaskResults: (TodoDto) -> Unit,
 ) {
     val todoList by vm.todoList.collectAsState()
@@ -18,7 +19,6 @@ fun HomeScreenContainer(
 
     HomeScreen(
         state = HomeUiState(todoList, showDialog, newTodoText),
-        onTodoSubmit = { vm.onConfirmAddTodo() },
         getTodoList = { vm.loadTodoList() },
         insertHistoryOnAction = { vm.insertHistoryOnAction(it) },
         onNavigateToHistory = onNavigateToHistory,
@@ -28,6 +28,7 @@ fun HomeScreenContainer(
         onTodoTextChange = vm::onTodoTextChange,
         onAddTodoClicked = vm::onAddTodoClicked,
         onConfirmAddTodo = { vm.onConfirmAddTodo() },
-        onDismissDialog = vm::onDismissDialog
+        onDismissDialog = vm::onDismissDialog,
+        onLogout = onLogout
     )
 }

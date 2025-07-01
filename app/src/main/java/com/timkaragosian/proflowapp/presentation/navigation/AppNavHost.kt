@@ -40,7 +40,8 @@ fun AppNavHost(navController: NavHostController) {
 
         composable(homeScreen) {
             HomeScreenContainer(
-                onNavigateToHistory = { navController.navigate("history") },
+                onNavigateToHistory = { navController.navigate(historyScreen) },
+                onLogout = { navController.navigate(signInScreen) },
                 onTaskResults = { todo ->
                     val route = "$flowResultScreen/${todo.id}/${todo.todo}/${todo.completed}/${todo.timestamp}"
                     navController.navigate(route)                }
