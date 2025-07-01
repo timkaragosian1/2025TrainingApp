@@ -52,10 +52,12 @@ fun FlowResultScreen(
             todoDto = todoDto,
             onComplete = {
                 vm.completeTodo(todoDto.id)
+                vm.saveHistory("Completed Task: ${todoDto.todo}")
                 onNavigateBack()
                          },
             onDelete = {
                 vm.deleteTodo(todoDto.id)
+                vm.saveHistory("Deleted Task: ${todoDto.todo}")
                 onNavigateBack()
                        },
             modifier = Modifier.padding(paddingValues)

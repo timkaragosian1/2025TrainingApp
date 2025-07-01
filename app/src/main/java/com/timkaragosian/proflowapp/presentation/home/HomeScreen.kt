@@ -1,8 +1,8 @@
 package com.timkaragosian.proflowapp.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,33 +29,24 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.timkaragosian.proflowapp.R
-import com.timkaragosian.proflowapp.data.network.TodoDto
 
 @Composable
 fun HomeScreen(
     state: HomeUiState,
-    getTodoList: () -> Unit,
-    insertHistoryOnAction: (String) -> Unit,
-    onNavigateToHistory: () -> Unit,
-    onLogout: () -> Unit,
-    onNavigateToTaskDetails: (String, String, Boolean, Long) -> Unit,
-    onTodoTextChange: (String) -> Unit,
-    onAddTodoClicked: () -> Unit,
-    onConfirmAddTodo: (String) -> Unit,
-    onDismissDialog: () -> Unit,
+    onEvent: (HomeUiEvent) -> Unit,
 ) {
     LaunchedEffect(Unit) {
-        getTodoList()
+        onEvent(HomeUiEvent.LoadTodoList)
     }
 
     if (state.showAddDialog) {
         AlertDialog(
-            onDismissRequest = onDismissDialog,
+            onDismissRequest = { onEvent(HomeUiEvent.DismissDialog) },
             title = { Text("New Todo") },
             text = {
                 OutlinedTextField(
                     value = state.newTodoText,
-                    onValueChange = onTodoTextChange,
+                    onValueChange = { onEvent(HomeUiEvent.TodoTextChanged(it)) },
                     label = { Text("Task") },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -65,16 +56,15 @@ fun HomeScreen(
             confirmButton = {
                 Button(
                     onClick = {
-                        onConfirmAddTodo(state.newTodoText)
-                        insertHistoryOnAction(state.newTodoText)
-                              },
+                        onEvent(HomeUiEvent.ConfirmAddTodo(state.newTodoText))
+                    },
                     enabled = state.newTodoText.isNotBlank()
                 ) {
                     Text("Add")
                 }
             },
             dismissButton = {
-                OutlinedButton(onClick = onDismissDialog) {
+                OutlinedButton(onClick = { onEvent(HomeUiEvent.DismissDialog) }) {
                     Text("Cancel")
                 }
             }
@@ -84,10 +74,9 @@ fun HomeScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.systemBars,
-        topBar = {},
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onAddTodoClicked,
+                onClick = { onEvent(HomeUiEvent.AddTodoClicked) },
                 modifier = Modifier.testTag("fab_add_todo")
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Add Todo")
@@ -95,23 +84,19 @@ fun HomeScreen(
         },
         bottomBar = {
             BottomAppBar {
-                Box(
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Button(
-                        onClick = onNavigateToHistory,
-                        modifier = Modifier
-                            .testTag("history_button")
-                            .padding(horizontal = 2.dp)
+                        onClick = { onEvent(HomeUiEvent.NavigateToHistory) },
+                        modifier = Modifier.testTag("history_button")
                     ) {
                         Text("History")
                     }
                     Button(
-                        onClick = onLogout,
-                        modifier = Modifier
-                            .testTag("logout_button")
-                            .padding(horizontal = 2.dp)
+                        onClick = { onEvent(HomeUiEvent.Logout) },
+                        modifier = Modifier.testTag("logout_button")
                     ) {
                         Text("Logout")
                     }
@@ -134,7 +119,7 @@ fun HomeScreen(
             Spacer(Modifier.height(12.dp))
 
             Button(
-                onClick = getTodoList,
+                onClick = { onEvent(HomeUiEvent.LoadTodoList) },
                 modifier = Modifier.testTag("load_button")
             ) {
                 Text(text = stringResource(id = R.string.home_button))
@@ -148,12 +133,7 @@ fun HomeScreen(
                 )
                 Button(
                     onClick = {
-                        onNavigateToTaskDetails(
-                            todoItem.id,
-                            todoItem.todo,
-                            todoItem.completed,
-                            todoItem.timestamp
-                        )
+                        onEvent(HomeUiEvent.NavigateToDetails(todoItem))
                     },
                     modifier = Modifier.testTag("submit_button_$index")
                 ) {

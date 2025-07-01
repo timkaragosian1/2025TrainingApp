@@ -42,26 +42,26 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `onTodoTextChange updates state`() {
+    fun onTodoTextChangeUpdatesState() {
         vm.onTodoTextChange("Do something")
         assertEquals("Do something", vm.newTodoText.value)
     }
 
     @Test
-    fun `onAddTodoClicked shows dialog`() {
+    fun onAddTodoClickedShowsDialog() {
         vm.onAddTodoClicked()
         assertEquals(true, vm.showAddDialog.value)
     }
 
     @Test
-    fun `onDismissDialog hides dialog`() {
+    fun onDismissDialogHidesDialog() {
         vm.onAddTodoClicked()
         vm.onDismissDialog()
         assertEquals(false, vm.showAddDialog.value)
     }
 
     @Test
-    fun `onConfirmAddTodo adds todo, saves history, and clears input`() = runTest(testDispatcher) {
+    fun onConfirmAddTodoAddsSavesClears() = runTest(testDispatcher) {
         vm.onTodoTextChange("New Task")
         vm.onConfirmAddTodo()
 
@@ -74,7 +74,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `insertHistoryOnAction triggers save`() = runTest(testDispatcher) {
+    fun insertHistoryOnActionTriggersSave() = runTest(testDispatcher) {
         val action = "Some action occurred"
         vm.insertHistoryOnAction(action)
         advanceUntilIdle()
@@ -82,7 +82,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `loadTodoList filters out nulls`() = runTest(testDispatcher) {
+    fun loadTodoListFiltersOutNulls() = runTest(testDispatcher) {
         val listWithNulls = listOf(
             TodoDto("1", "Task A", false, 0),
             null,

@@ -119,6 +119,8 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.ui.test.junit4.android)
+    implementation(libs.androidx.runner)
+    androidTestImplementation("org.testng:testng:6.9.6")
     kapt(libs.room.compiler)
 
     // Testing

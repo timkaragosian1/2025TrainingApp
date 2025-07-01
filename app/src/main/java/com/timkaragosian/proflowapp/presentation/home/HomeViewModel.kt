@@ -8,6 +8,8 @@ import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
 import com.timkaragosian.proflowapp.domain.usecase.home.AddItemUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
@@ -17,60 +19,51 @@ class HomeViewModel(
     private val saveHistory: SaveHistoryUseCase
 ) : ViewModel() {
 
-    private val _todoList = MutableStateFlow<List<TodoDto>>(emptyList())
-    val todoList: StateFlow<List<TodoDto>> = _todoList
+    private val _uiState = MutableStateFlow(HomeUiState())
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-    private val _showAddDialog = MutableStateFlow(false)
-    val showAddDialog: StateFlow<Boolean> = _showAddDialog
+    private val _event = MutableStateFlow<HomeUiEvent?>(null)
+    val event: StateFlow<HomeUiEvent?> = _event.asStateFlow()
 
-    private val _newTodoText = MutableStateFlow("")
-    val newTodoText: StateFlow<String> = _newTodoText
-
-    fun loadTodoList() {
-        viewModelScope.launch {
-            getTodo().collect { list ->
-                _todoList.value = list.filterNotNull()
-            }
+    fun onEvent(event: HomeUiEvent) {
+        when (event) {
+            is HomeUiEvent.AddTodoClicked -> _uiState.update { it.copy(showAddDialog = true) }
+            is HomeUiEvent.DismissDialog -> _uiState.update { it.copy(showAddDialog = false) }
+            is HomeUiEvent.TodoTextChanged -> _uiState.update { it.copy(newTodoText = event.text) }
+            is HomeUiEvent.ConfirmAddTodo -> handleConfirmAdd()
+            is HomeUiEvent.LoadTodoList -> loadTodoList()
+            is HomeUiEvent.NavigateToDetails -> _event.value = event
+            is HomeUiEvent.NavigateToHistory -> _event.value = event
+            is HomeUiEvent.Logout -> _event.value = event
         }
     }
 
-    fun onTodoTextChange(text: String) {
-        _newTodoText.value = text
-    }
-
-    fun onAddTodoClicked() {
-        _showAddDialog.value = true
-    }
-
-    fun onDismissDialog() {
-        _showAddDialog.value = false
-    }
-
-    fun onConfirmAddTodo() {
-        val todoText = _newTodoText.value.trim()
-        if (todoText.isBlank()) return
+    private fun handleConfirmAdd() {
+        val text = _uiState.value.newTodoText.trim()
+        if (text.isBlank()) return
 
         val timestamp = System.currentTimeMillis()
-        val newTodo = TodoDto(
-            id = "$timestamp$todoText",
-            todo = todoText,
+        val todo = TodoDto(
+            id = "$timestamp$text",
+            todo = text,
             completed = false,
             timestamp = timestamp
         )
 
         viewModelScope.launch {
-            addItem(newTodo)
-            saveHistory("Inserted Todo Task: $todoText at timestamp $timestamp")
+            addItem(todo)
+            saveHistory("Inserted Todo Task: $text at timestamp $timestamp")
             loadTodoList()
         }
 
-        _newTodoText.value = ""
-        _showAddDialog.value = false
+        _uiState.update { it.copy(newTodoText = "", showAddDialog = false) }
     }
 
-    fun insertHistoryOnAction(actionText: String) {
+    private fun loadTodoList() {
         viewModelScope.launch {
-            saveHistory(actionText)
+            getTodo().collect { list ->
+                _uiState.update { it.copy(todoList = list.filterNotNull()) }
+            }
         }
     }
 }

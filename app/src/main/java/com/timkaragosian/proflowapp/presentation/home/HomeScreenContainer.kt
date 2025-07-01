@@ -1,6 +1,7 @@
 package com.timkaragosian.proflowapp.presentation.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.timkaragosian.proflowapp.data.network.TodoDto
@@ -10,25 +11,23 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreenContainer(
     vm: HomeViewModel = koinViewModel(),
     onNavigateToHistory: () -> Unit,
-    onLogout: () -> Unit,
-    onTaskResults: (TodoDto) -> Unit,
+    onNavigateToDetails: (TodoDto) -> Unit,
+    onLogout: () -> Unit
 ) {
-    val todoList by vm.todoList.collectAsState()
-    val showDialog by vm.showAddDialog.collectAsState()
-    val newTodoText by vm.newTodoText.collectAsState()
+    val state by vm.uiState.collectAsState()
+    val event by vm.event.collectAsState(initial = null)
+
+    LaunchedEffect(event) {
+        when (val e = event) {
+            is HomeUiEvent.NavigateToDetails -> onNavigateToDetails(e.todo)
+            is HomeUiEvent.NavigateToHistory -> onNavigateToHistory()
+            is HomeUiEvent.Logout -> onLogout()
+            else -> Unit
+        }
+    }
 
     HomeScreen(
-        state = HomeUiState(todoList, showDialog, newTodoText),
-        getTodoList = { vm.loadTodoList() },
-        insertHistoryOnAction = { vm.insertHistoryOnAction(it) },
-        onNavigateToHistory = onNavigateToHistory,
-        onNavigateToTaskDetails = { id, todo, completed, timestamp ->
-            onTaskResults(TodoDto(id, todo, completed, timestamp))
-        },
-        onTodoTextChange = vm::onTodoTextChange,
-        onAddTodoClicked = vm::onAddTodoClicked,
-        onConfirmAddTodo = { vm.onConfirmAddTodo() },
-        onDismissDialog = vm::onDismissDialog,
-        onLogout = onLogout
+        state = state,
+        onEvent = vm::onEvent
     )
 }

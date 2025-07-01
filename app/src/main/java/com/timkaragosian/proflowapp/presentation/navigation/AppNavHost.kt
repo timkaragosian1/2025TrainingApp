@@ -41,10 +41,14 @@ fun AppNavHost(navController: NavHostController) {
         composable(homeScreen) {
             HomeScreenContainer(
                 onNavigateToHistory = { navController.navigate(historyScreen) },
-                onLogout = { navController.navigate(signInScreen) },
-                onTaskResults = { todo ->
-                    val route = "$flowResultScreen/${todo.id}/${todo.todo}/${todo.completed}/${todo.timestamp}"
-                    navController.navigate(route)                }
+                onNavigateToDetails = { todo ->
+                    navController.navigate("$flowResultScreen/${todo.id}/${todo.todo}/${todo.completed}/${todo.timestamp}")
+                },
+                onLogout = {
+                    navController.navigate(signInScreen) {
+                        popUpTo(homeScreen) { inclusive = true }
+                    }
+                }
             )
         }
 
@@ -65,13 +69,13 @@ fun AppNavHost(navController: NavHostController) {
             )
             FlowResultScreen(
                 todoDto = todoTask,
-                onNavigateBack = { navController.popBackStack() },
+                onNavigateBack = { navController.navigate(homeScreen) },
             )
         }
 
         composable(historyScreen){
             HistoryScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.navigate(homeScreen) },
             )
         }
     }

@@ -8,5 +8,5 @@ import io.ktor.client.statement.HttpResponse
 class CompleteTodoTaskUseCase(
     private val repo: TodoRepositoryImpl
 ) {
-    suspend operator fun invoke(id:String): HttpResponse = repo.completeItem(id)
+    suspend operator fun invoke(id:String) = repo.completeItem(id)
 }

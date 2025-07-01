@@ -29,6 +29,7 @@ junitKtx = "1.2.1"
 uiTestJunit4 = "<compose-version>"
 uiTestJunit4Android = "1.8.3"
 uiTestJunit4Version = "<version>"
+runner = "1.6.2"
 
 
 [libraries]
@@ -72,6 +73,7 @@ androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
