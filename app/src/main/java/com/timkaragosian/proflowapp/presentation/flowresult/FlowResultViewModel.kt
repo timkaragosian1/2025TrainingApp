@@ -21,6 +21,6 @@ class FlowResultViewModel(
     }
 
     fun saveHistory(task:String) = viewModelScope.launch {
-        saveHistory(task)
+        saveHistory.invoke(task)
     }
 }
