@@ -5,6 +5,10 @@ plugins {
     id("kotlin-kapt")
 }
 
+kotlin{
+    jvmToolchain(17)
+}
+
 android {
 
     namespace = "com.timkaragosian.proflowapp"
@@ -139,9 +143,7 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.androidx.core.testing)
-    androidTestImplementation(libs.androidx.ui.test.junit4.vcomposeversion)
-    androidTestImplementation(libs.mockk.android) // For instrumented tests in `androidTest/`
-
+    androidTestImplementation(libs.mockk.android)
 
     // Compose Tooling
     debugImplementation(libs.androidx.ui.tooling)

@@ -57,9 +57,9 @@ class SignInViewModel(
 
         _state.update { it.copy(isLoading = true) }
 
-        repo.login(user,pass, strings)
+        repo.login(user, pass, strings)
             .onSuccess { _effect.send(SignInEffect.NavigateToHome) }
-            .onFailure { state.value.errorMessage = mutableStateOf(strings.string(R.string.login_failed_error)) }//_effect.send(SignInEffect.ShowError(it.message ?: "Login failed")) }
+            .onFailure { state.value.errorMessageId.value = R.string.login_failed_error }//_effect.send(SignInEffect.ShowError(it.message ?: "Login failed")) }
 
         _state.update { it.copy(isLoading = false) }
     }

@@ -1,5 +1,6 @@
 package com.timkaragosian.proflowapp.domain.auth
 
+import androidx.compose.ui.res.stringResource
 import com.timkaragosian.proflowapp.BuildConfig
 import com.timkaragosian.proflowapp.R
 import com.timkaragosian.proflowapp.data.resourcesprovider.ResourceProvider

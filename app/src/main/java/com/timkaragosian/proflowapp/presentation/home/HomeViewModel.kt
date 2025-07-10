@@ -52,6 +52,7 @@ class HomeViewModel(
 
         viewModelScope.launch {
             addItem(todo)
+            println("Saving: $text")
             saveHistory("Inserted Todo Task: $text at timestamp $timestamp")
             loadTodoList()
         }

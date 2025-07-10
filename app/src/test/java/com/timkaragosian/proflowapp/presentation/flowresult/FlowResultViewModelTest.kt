@@ -3,6 +3,7 @@ package com.timkaragosian.proflowapp.presentation.flowresult
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.timkaragosian.proflowapp.domain.usecase.flowresult.CompleteTodoTaskUseCase
 import com.timkaragosian.proflowapp.domain.usecase.flowresult.DeleteTodoTaskUseCase
+import com.timkaragosian.proflowapp.domain.usecase.history.SaveHistoryUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -31,6 +32,7 @@ class FlowResultViewModelTest {
 
     private val deleteTodoTaskUseCase = mockk<DeleteTodoTaskUseCase>(relaxed = true)
     private val completeTodoTaskUseCase = mockk<CompleteTodoTaskUseCase>(relaxed = true)
+    private val saveHistory = mockk<SaveHistoryUseCase>(relaxed = true)
 
     private lateinit var viewModel: FlowResultViewModel
 
@@ -38,7 +40,8 @@ class FlowResultViewModelTest {
     fun setup() {
         viewModel = FlowResultViewModel(
             deleteTodoTaskUseCase = deleteTodoTaskUseCase,
-            completeTodoTaskUseCase = completeTodoTaskUseCase
+            completeTodoTaskUseCase = completeTodoTaskUseCase,
+            saveHistory = saveHistory
         )
     }
 

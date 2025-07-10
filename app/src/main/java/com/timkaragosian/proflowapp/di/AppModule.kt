@@ -33,7 +33,7 @@ val appModules = module {
     single { DeleteTodoTaskUseCase(get()) }
     single { CompleteTodoTaskUseCase(get()) }
     viewModel { HomeViewModel(get(),get(),get() ) }
-    viewModel { FlowResultViewModel(get(),get() ) }
+    viewModel { FlowResultViewModel(get(),get(), get() ) }
 
     single { HistoryRepositoryImpl(get()) }
     single { SaveHistoryUseCase(get()) }

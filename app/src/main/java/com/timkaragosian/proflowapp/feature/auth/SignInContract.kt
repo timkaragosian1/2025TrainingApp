@@ -9,7 +9,7 @@ data class SignInState(
     val username: String = "",
     val password: String = "",
     val isLoading: Boolean = false,
-    var errorMessage: MutableState<String?> = mutableStateOf(null),
+    var errorMessageId: MutableState<Int?> = mutableStateOf(null),
 )
 
 //User intents coming from UI Layer
