@@ -134,7 +134,7 @@ class SignInViewModelTest {
 
             advance()
 
-            assertEquals("str_${R.string.login_failed_error}", vm.state.value.errorMessage.value)
+            assertEquals(R.string.login_failed_error, vm.state.value.errorMessageId.value)
             assertFalse(vm.state.value.isLoading)
 
             cancelAndIgnoreRemainingEvents()
