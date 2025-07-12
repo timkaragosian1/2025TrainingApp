@@ -1,4 +1,4 @@
-#2025 Training App for Android Kotlin Compose Reference
+# 2025 Training App for Android Kotlin Compose Reference
 
 This application was developed by Tim "TJ" Karagosian solo and is intended to be used as reference for modern android practices in common functionality and patterns. These include MVVM, testing, navigation, API calls, DB interactions, and more.
 
