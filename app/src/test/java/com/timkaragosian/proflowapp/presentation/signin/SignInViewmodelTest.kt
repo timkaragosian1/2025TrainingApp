@@ -45,10 +45,7 @@ class SignInViewModelTest {
         Dispatchers.resetMain()
     }
 
-    // ---------- helper ----------
     private fun advance() = dispatcher.scheduler.advanceUntilIdle()
-
-    // ---------- tests ------------
 
     @Test
     fun emptyFields_showsBothFieldsError() = runTest(dispatcher) {
